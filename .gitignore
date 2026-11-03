@@ -1,0 +1,18 @@
+# Avaliador (Docker)
+competicao.db
+historico_local_tentativas/*
+!historico_local_tentativas/.gitkeep
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+.ipynb_checkpoints/
+
+# Entrega
+Grupo*.zip
+
+# Sistema / editor
+.DS_Store
+.vscode/
+.idea/
