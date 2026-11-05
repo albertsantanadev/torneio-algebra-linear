@@ -71,4 +71,4 @@ python harness/bench2.py banco_publico harness
 
 ## Entrega
 
-`Grupo[N].zip` com o `.py` final (`principal`) e o relatório curto. Um integrante envia e lista os nomes dos três no comentário da postagem.
+`Grupo[N].zip` com o `.py` final (`principal`) e o relatório.
