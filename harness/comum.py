@@ -1,7 +1,7 @@
 """Funcoes compartilhadas pelo verificador e pelo avaliador local.
 
 Nada aqui e enviado na entrega: o harness roda no computador pessoal, fora do
-avaliador oficial, entao pode usar qualquer biblioteca (inclusive default_rng).
+avaliador oficial
 """
 import importlib.util
 import os
