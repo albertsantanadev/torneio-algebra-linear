@@ -1,5 +1,4 @@
-"""Arquivo de entrega do grupo (integracao: Albert).
-
+"""
 O avaliador exige UMA funcao `principal(observada, mascara)`; funcoes de apoio ficam
 DENTRO dela. Imports permitidos: numpy, scipy, math e random.
 
