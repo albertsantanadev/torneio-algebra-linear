@@ -9,9 +9,8 @@ Uso:
     python harness/avaliar.py src/principal.py --sinteticas 30 --semente 7 --tamanho-max 40
     python harness/avaliar.py src/principal.py --comparar src/outro.py   # dois arquivos lado a lado
 
-As duas colunas de NRMSE existem porque a normalizacao oficial mudou em 03/11 e
-ainda nao sabemos qual vale: rode a MEDIA no avaliador oficial (Docker) e veja qual
-coluna bate com a interface.
+A coluna NRMSE(ocultas) reproduziu o resultado oficial do Docker para a V2.
+A coluna NRMSE(total) e mantida apenas como comparacao.
 """
 import argparse
 import os

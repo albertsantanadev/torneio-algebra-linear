@@ -40,8 +40,8 @@ def carregar_banco(pasta):
 def nrmse(g, pred, m):
     """Devolve (nrmse com desvio das ocultas, nrmse com desvio da matriz inteira).
 
-    O avaliador oficial usa uma delas (e o monitor mudou a normalizacao em 03/11).
-    Compare estes valores com o que a interface mostra para saber qual vale.
+    A coluna que usa o desvio das ocultas reproduziu o NRMSE oficial da V2.
+    A segunda coluna e mantida como referencia alternativa.
     """
     ocultas = ~np.asarray(m).astype(bool)
     erro = np.sqrt(np.mean((np.asarray(pred, dtype=float)[ocultas] - g[ocultas]) ** 2))

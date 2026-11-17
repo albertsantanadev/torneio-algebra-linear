@@ -90,6 +90,11 @@ def checar_estatico(caminho):
                 erros.append(f"linha {linha}: funcao nao permitida: {no.id}")
             if no.id.startswith("_") and no.id != "_":
                 avisos.append(f"linha {linha}: nome '{no.id}' comeca com '_' (RestrictedPython costuma bloquear)")
+        elif isinstance(no, ast.AugAssign) and isinstance(no.target, (ast.Subscript, ast.Attribute)):
+            erros.append(
+                f"linha {linha}: atribuicao aumentada em indice/atributo e rejeitada pelo RestrictedPython; "
+                "troque A[i] += b por A[i] = A[i] + b"
+            )
         elif isinstance(no, (ast.Global, ast.Nonlocal)):
             avisos.append(f"linha {linha}: global/nonlocal pode nao funcionar no RestrictedPython")
         elif isinstance(no, ast.Try):
