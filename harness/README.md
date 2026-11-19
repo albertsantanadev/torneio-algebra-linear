@@ -5,6 +5,7 @@ Ferramentas para medir e checar o codigo sem o Docker. Nada daqui vai no `.zip` 
 | Arquivo | Para que serve |
 |---|---|
 | `verificador.py` | Reprova o `principal.py` que fere as regras do avaliador (imports, `class`, `seed`, `default_rng`, assinatura, NaN/Inf, dimensao, tempo). |
+| `testes_verificador.py` | Testes de regressao do verificador: 32 arquivos que devem ser reprovados (`class`, `import time`, imports fora da lista, seed/default_rng/RandomState/Random, NaN, Inf, dimensao errada, celula conhecida alterada...) e 4 que devem ser aprovados, incluindo `src/principal.py`. |
 | `avaliar.py` | Roda um `principal.py` no banco publico ou em matrizes sinteticas e mostra NRMSE e tempo por matriz. |
 | `sinteticas.py` | Gera matrizes de teste (ate 40x40) que simulam o lote privado. |
 | `comum.py` | Funcoes usadas pelos tres arquivos acima (carregar dados, NRMSE, checar saida). |
@@ -18,6 +19,7 @@ pip install numpy scipy
 
 # 1. Antes de qualquer envio: o codigo cumpre as regras?
 python harness/verificador.py src/principal.py banco_publico
+python harness/testes_verificador.py   # o proprio verificador ainda pega tudo?
 
 # 2. Qual o erro e o tempo no banco publico?
 python harness/avaliar.py src/principal.py

@@ -29,7 +29,7 @@ def avaliar(principal, itens):
         try:
             saida, t = executar(principal, it["o"], it["m"])
             probs = problemas_da_saida(saida, it["o"], it["m"])
-            fatais = [p for p in probs if "conhecidas" not in p]
+            fatais = probs  # inclui celula conhecida alterada
             if fatais:
                 n_o, n_t = float("nan"), float("nan")
             else:

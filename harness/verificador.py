@@ -7,7 +7,7 @@ Etapa 1 (estatica, le o codigo sem executar): confere as restricoes do
 avaliador (RestrictedPython): imports permitidos, sem `class`, sem seed/default_rng/
 RandomState/Random, sem `time`, uma unica funcao `principal(observada, mascara)`.
 Etapa 2 (dinamica): roda `principal` no banco publico e confere dimensao, tipo,
-NaN/Inf, celulas conhecidas, tempo por matriz (2 s) e tempo do lote (25 s).
+NaN/Inf, celulas conhecidas alteradas (ERRO), tempo por matriz (2 s) e tempo do lote (25 s).
 
 Codigo de saida: 0 = tudo certo, 1 = ha ERRO que desclassifica.
 """
@@ -90,6 +90,8 @@ def checar_estatico(caminho):
                 erros.append(f"linha {linha}: funcao nao permitida: {no.id}")
             if no.id.startswith("_") and no.id != "_":
                 avisos.append(f"linha {linha}: nome '{no.id}' comeca com '_' (RestrictedPython costuma bloquear)")
+        elif isinstance(no, ast.Constant) and isinstance(no.value, str) and no.value in PROIBIDOS_NOMES:
+            erros.append(f"linha {linha}: texto '{no.value}' (acesso indireto proibido, ex.: getattr(obj, '{no.value}'))")
         elif isinstance(no, ast.AugAssign) and isinstance(no.target, (ast.Subscript, ast.Attribute)):
             erros.append(
                 f"linha {linha}: atribuicao aumentada em indice/atributo e rejeitada pelo RestrictedPython; "
@@ -121,7 +123,7 @@ def checar_dinamico(caminho, pasta_banco):
         total += t
         probs = problemas_da_saida(saida, o, m)
         for p in probs:
-            (avisos if "conhecidas" in p else erros).append(f"matriz {item['nome']}: {p}")
+            erros.append(f"matriz {item['nome']}: {p}")
         if t > LIMITE_MATRIZ_S:
             erros.append(f"matriz {item['nome']}: {t:.2f}s passa do limite de {LIMITE_MATRIZ_S:.0f}s")
         elif t > 0.5 * LIMITE_MATRIZ_S:
