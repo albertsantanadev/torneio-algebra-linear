@@ -6,6 +6,9 @@ Ferramentas para medir e checar o codigo sem o Docker. Nada daqui vai no `.zip` 
 |---|---|
 | `verificador.py` | Reprova o `principal.py` que fere as regras do avaliador (imports, `class`, `seed`, `default_rng`, assinatura, NaN/Inf, dimensao, tempo). |
 | `testes_verificador.py` | Testes de regressao do verificador: 32 arquivos que devem ser reprovados (`class`, `import time`, imports fora da lista, seed/default_rng/RandomState/Random, NaN, Inf, dimensao errada, celula conhecida alterada...) e 4 que devem ser aprovados, incluindo `src/principal.py`. |
+| `v2_configuravel.py` | Replica da V2 com pecas liga/desliga e candidatos extras (ablacao). Na config padrao a saida e identica a `src/principal.py`. Opcao `plano_b`: se a SVD falhar ou gerar NaN/Inf, usa aditivo + posto 1 por ALS. |
+| `testes_estrutura.py` | Etapa 2: mede simetria, Toeplitz e suavidade e testa esses candidatos no concurso da V2. Saida em `experimentos/RESULTADOS_ESTRUTURA.txt`. |
+| `testes_aditivo.py` | Etapa 3: aditivo (b_add) e aditivo + posto 1, sozinhos e no concurso da V2, e o plano B com a SVD forcada a falhar. Saida em `experimentos/RESULTADOS_ADITIVO.txt`. |
 | `avaliar.py` | Roda um `principal.py` no banco publico ou em matrizes sinteticas e mostra NRMSE e tempo por matriz. |
 | `sinteticas.py` | Gera matrizes de teste (ate 40x40) que simulam o lote privado. |
 | `comum.py` | Funcoes usadas pelos tres arquivos acima (carregar dados, NRMSE, checar saida). |

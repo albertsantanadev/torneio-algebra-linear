@@ -23,6 +23,8 @@ CONFIG_V2 = {
     "grupos_cv": (0, 2),        # dobras usadas (de 5)
     "extras": (),               # candidatos novos: ver EXTRAS abaixo
     "penal_extra": 0.0,         # penalidade relativa para candidatos novos
+    "plano_b": False,           # se a SVD falhar/gerar NaN: aditivo + posto 1 por ALS
+    "forcar_falha_svd": False,  # SO PARA TESTE: toda chamada de SVD falha
 }
 
 
@@ -258,21 +260,42 @@ def principal_config(observada, mascara, cfg=None, info=None):
                         pred[i, j] = a[i, int(depois[0])]
         return pred
 
+    cache_plano_b = {}
+
     def svd_fit(a, mask, mu, inicio, k, centrado, iteracoes):
         z = np.where(mask, a, inicio)
         centro = mu if centrado else 0.0
         for t in range(iteracoes):
             try:
+                if cfg.get("forcar_falha_svd"):
+                    raise np.linalg.LinAlgError("falha simulada")
                 u, singular, vt = np.linalg.svd(z - centro, full_matrices=False)
                 aproximacao = centro + (u[:, :k] * singular[:k]) @ vt[:k, :]
+                if cfg.get("plano_b") and not np.all(np.isfinite(aproximacao)):
+                    raise np.linalg.LinAlgError("SVD gerou NaN/Inf")
                 z = np.where(mask, a, aproximacao)
             except np.linalg.LinAlgError:
-                break
+                if cfg.get("plano_b"):
+                    # Plano B: aditivo + posto 1 por ALS, que nao usa SVD.
+                    if info is not None:
+                        info["plano_b"] = info.get("plano_b", 0) + 1
+                    try:
+                        chave = mask.tobytes()  # o plano B nao depende de k: calcula 1 vez por mascara
+                        if chave not in cache_plano_b:
+                            cache_plano_b[chave] = aditivo_posto1(a, mask)
+                        alt = cache_plano_b[chave]
+                        if np.all(np.isfinite(alt)):
+                            return np.where(mask, a, alt)
+                    except Exception:  # noqa: BLE001
+                        pass
+                break  # V2: fica com o ultimo z valido (no inicio, o aditivo)
         return z
 
     def polir_als(a, mask, pre, k, centrado, mu, reg, passos):
         centro = mu if centrado else 0.0
         try:
+            if cfg.get("forcar_falha_svd"):
+                raise np.linalg.LinAlgError("falha simulada")
             U, s, Vt = np.linalg.svd(pre - centro, full_matrices=False)
             U = U[:, :k] * np.sqrt(s[:k])
             V = Vt[:k, :].T * np.sqrt(s[:k])

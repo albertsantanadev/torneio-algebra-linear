@@ -1,0 +1,46 @@
+PARTE A - cada modelo sozinho no banco publico (NRMSE nas ocultas)
+mat      forma  b_add bench   aditivo  aditivo+p1  V2 entrega
+01      (8, 8)       1.2638    1.2638      1.3899      1.2342
+02      (9, 6)       0.0335    0.0335      0.0574      0.0308
+03      (6, 9)       0.0767    0.0767      0.0807      0.0740
+04     (14, 5)       0.3025    0.3025      0.0377      0.0384
+05     (14, 7)       0.4535    0.4535      0.4249      0.1296
+06    (16, 16)       1.1149    1.1149      0.8317      0.0426
+07    (18, 22)       1.0541    1.0541      0.9543      0.0861
+08    (17, 17)       1.0663    1.0663      1.6210      1.0026
+09    (24, 19)       0.2476    0.2476      0.2439      0.0000
+10    (28, 31)       0.3267    0.3267      0.3170      0.0030
+MEDIA                0.5940    0.5940      0.5958      0.2641
+
+PARTE B - modelos no concurso de validacao cruzada da V2 (NRMSE medio)
+configuracao                         publico   sint. padrao s7  sint. padrao s21   sint. estrutura
+V2 (entrega)                  0.2641 ( +0.0%)    0.6228 ( +0.0%)    0.6821 ( +0.0%)    0.2313 ( +0.0%)
+V2 + aditivo                  0.2641 ( +0.0%)    0.6228 ( +0.0%)    0.6821 ( +0.0%)    0.2313 ( +0.0%)
+V2 + aditivo+p1               0.2641 ( +0.0%)    0.6240 ( +0.2%)    0.6821 ( +0.0%)    0.2310 ( -0.1%)
+V2 + os dois                  0.2641 ( +0.0%)    0.6240 ( +0.2%)    0.6821 ( +0.0%)    0.2310 ( -0.1%)
+V2 + os dois, penal 2%        0.2641 ( +0.0%)    0.6240 ( +0.2%)    0.6821 ( +0.0%)    0.2310 ( -0.1%)
+
+PARTE C - plano B com a SVD forcada a falhar em todas as chamadas
+cenario                              publico   sint. padrao s7  sint. padrao s21   plano B usado
+V2 normal (referencia)                0.2641            0.6228            0.6821   0 matriz(es)
+SVD falha, sem plano B                0.5313            1.0126            1.0405   0 matriz(es)
+SVD falha, com plano B                0.5355            0.9231            0.9784   72 matriz(es)
+
+Plano B no banco publico, matriz a matriz:
+  01  sem plano B 1.2342  |  com plano B 1.2342
+  02  sem plano B 0.0308  |  com plano B 0.0308
+  03  sem plano B 0.0740  |  com plano B 0.0740
+  04  sem plano B 0.0272  |  com plano B 0.0272
+  05  sem plano B 0.3366  |  com plano B 0.4249
+  06  sem plano B 1.0311  |  com plano B 1.0311
+  07  sem plano B 1.0010  |  com plano B 0.9543  <- melhora
+  08  sem plano B 1.0026  |  com plano B 1.0026
+  09  sem plano B 0.2490  |  com plano B 0.2490
+  10  sem plano B 0.3268  |  com plano B 0.3268
+
+PARTE D - checagens
+  V2 com plano_b ligado e SVD sem falha = entrega, celula por celula: sim
+  imports de v2_configuravel.py: ['numpy']
+  tempo maximo por matriz: 0.209 s (limite 2 s)
+
+CHECAGEM: ok, sem NaN/Inf/celula alterada e tudo < 2 s
