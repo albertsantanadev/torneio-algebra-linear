@@ -1,0 +1,36 @@
+
+Lote sintetico (31 matrizes, semente 31, ate 40x40): src/principal.py
+matriz                          forma  NRMSE(ocultas)  NRMSE(total)  tempo(s)
+s01-baixo_posto              (25, 37)          0.0444        0.0420     0.082
+s02-posto_exato              (29, 25)          0.2488        0.2462     0.077
+s03-so_ruido                 (23, 14)          1.0083        1.0155     0.054
+s04-espectro_linear           (8, 24)          1.1311        1.1138     0.036
+s05-borda                    (21, 12)          0.2559        0.2484     0.044
+s06-baixo_posto              (21, 37)          0.1960        0.1926     0.066
+s07-posto_exato               (9, 40)          0.7338        0.7642     0.054
+s08-so_ruido                 (30, 19)          1.0054        0.9956     0.084
+s09-espectro_linear          (18, 21)          1.0014        0.9869     0.077
+s10-borda                     (9, 20)          0.2381        0.2174     0.038
+s11-baixo_posto               (7, 13)          1.0129        1.0909     0.025
+s12-posto_exato              (29, 16)          0.1131        0.1221     0.073
+s13-so_ruido                 (23, 27)          1.0102        0.9969     0.065
+s14-espectro_linear           (9, 23)          1.0885        1.2622     0.038
+s15-borda                    (16, 18)          0.6744        0.7469     0.061
+s16-baixo_posto              (19, 23)          0.3554        0.3878     0.084
+s17-posto_exato               (35, 8)          0.5523        0.5909     0.037
+s18-so_ruido                 (31, 32)          1.0052        1.0066     0.101
+s19-espectro_linear          (33, 35)          1.0000        0.9724     0.113
+s20-borda                     (38, 7)          1.0035        0.9459     0.030
+s21-baixo_posto              (28, 33)          0.0236        0.0246     0.087
+s22-posto_exato              (28, 33)          0.0138        0.0136     0.086
+s23-so_ruido                 (14, 11)          1.2161        1.0304     0.036
+s24-espectro_linear          (16, 31)          1.0069        0.9649     0.079
+s25-borda                     (7, 29)          1.0372        1.0117     0.032
+s26-baixo_posto               (7, 16)          0.8334        0.6140     0.027
+s27-posto_exato              (16, 27)          0.2998        0.2942     0.119
+s28-so_ruido                 (31, 13)          1.0057        0.9545     0.053
+s29-espectro_linear          (39, 34)          1.0039        1.0463     0.109
+s30-borda                    (21, 12)          1.4963        1.4201     0.043
+s00-pior-caso-40x40          (40, 40)          0.0227        0.0227     0.171
+MEDIA (31 validas)                             0.6980        0.6885     0.067
+tempo total do lote: 2.08 s   |   mais lenta: 0.171 s

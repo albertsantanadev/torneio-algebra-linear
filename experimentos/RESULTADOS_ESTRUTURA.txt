@@ -1,0 +1,58 @@
+PARTE A - estrutura nas matrizes publicas (so celulas observadas)
+mat      forma  simetria  R2 diag  R2 lin  R2 col  R2 poliC2  R2 poliL2
+01      (8, 8)     1.233    0.219   0.151   0.078      0.493      0.449
+02      (9, 6)         -    0.716   0.999   0.012      0.999      0.999
+03      (6, 9)         -    0.677   0.043   0.996      0.998      0.978
+04     (14, 5)         -    0.683   0.677   0.220      1.000      0.798
+05     (14, 7)         -    0.359   0.542   0.293      0.999      0.685
+06    (16, 16)     1.312    0.130   0.082   0.075      0.193      0.271
+07    (18, 22)         -    0.090   0.095   0.063      0.364      0.135
+08    (17, 17)     1.374    0.199   0.061   0.079      0.253      0.306
+09    (24, 19)         -    0.075   0.568   0.442      0.483      0.630
+10    (28, 31)         -    0.096   0.439   0.528      0.656      0.475
+
+PARTE B - candidatos novos no concurso de validacao cruzada da V2
+
+banco publico (10) (10 matrizes)
+configuracao                   NRMSE medio    vs V2  tempo max  invalidas  escolhas
+V2 (entrega)                        0.2641    +0.0%     0.081s          0  svd:6, global:2, linha:1, coluna:1
+V2 + simetrica                      0.2641    +0.0%     0.081s          0  svd:6, global:2, linha:1, coluna:1
+V2 + toeplitz                       0.2641    +0.0%     0.081s          0  svd:6, global:2, linha:1, coluna:1
+V2 + suavidade (poli 1-3)           0.2549    -3.5%     0.084s          0  svd:4, global:2, linha:1, coluna:1, poliC1:1, poliC2:1
+V2 + suavidade, penal 2%            0.2549    -3.5%     0.084s          0  svd:4, global:2, linha:1, coluna:1, poliC1:1, poliC2:1
+V2 + superficie (grau 1-2)          0.2847    +7.8%     0.081s          0  svd:6, superf2:2, coluna:1, global:1
+V2 + todas as estruturas            0.2754    +4.3%     0.084s          0  svd:4, superf2:2, coluna:1, poliC1:1, poliC2:1, global:1
+
+sinteticas com estrutura (25 matrizes)
+configuracao                   NRMSE medio    vs V2  tempo max  invalidas  escolhas
+V2 (entrega)                        0.2313    +0.0%     0.148s          0  svd:9, coluna:5, linha:4, viz_linha:4, viz_coluna:3
+V2 + simetrica                      0.2257    -2.4%     0.148s          0  svd:9, linha:4, coluna:4, viz_linha:4, viz_coluna:3, simetrica:1
+V2 + toeplitz                       0.1462   -36.8%     0.148s          0  svd:9, toeplitz:5, linha:4, coluna:4, viz_coluna:2, viz_linha:1
+V2 + suavidade (poli 1-3)           0.2162    -6.5%     0.151s          0  poliC1:5, svd:5, coluna:4, poliL2:4, linha:3, viz_linha:3, viz_coluna:1
+V2 + suavidade, penal 2%            0.2162    -6.5%     0.151s          0  poliC1:5, svd:5, coluna:4, poliL2:4, linha:3, viz_linha:3, viz_coluna:1
+V2 + superficie (grau 1-2)          0.2350    +1.6%     0.149s          0  svd:9, superf1:6, superf2:3, viz_linha:3, viz_coluna:3, coluna:1
+V2 + todas as estruturas            0.1306   -43.5%     0.153s          0  superf1:6, svd:5, poliC1:4, toeplitz:4, poliL2:3, superf2:2, simetrica:1
+
+sinteticas padrao (31 matrizes)
+configuracao                   NRMSE medio    vs V2  tempo max  invalidas  escolhas
+V2 (entrega)                        0.6228    +0.0%     0.149s          0  svd:17, global:13, linha:1
+V2 + simetrica                      0.6228    +0.0%     0.149s          0  svd:17, global:13, linha:1
+V2 + toeplitz                       0.6256    +0.5%     0.149s          0  svd:17, global:12, toeplitz:1, linha:1
+V2 + suavidade (poli 1-3)           0.6320    +1.5%     0.152s          0  svd:17, global:13, poliL1:1
+V2 + suavidade, penal 2%            0.6228    +0.0%     0.152s          0  svd:17, global:13, linha:1
+V2 + superficie (grau 1-2)          0.6224    -0.1%     0.148s          0  svd:17, global:10, superf1:2, superf2:1, linha:1
+V2 + todas as estruturas            0.6345    +1.9%     0.153s          0  svd:17, global:9, superf1:2, superf2:1, toeplitz:1, poliL1:1
+
+Banco publico, matriz a matriz (V2 x V2 + todas as estruturas)
+  01  V2 1.2342 (global)  |  +estruturas 1.4490 (superf2)  <- muda
+  02  V2 0.0308 (linha)  |  +estruturas 0.0214 (superf2)  <- muda
+  03  V2 0.0740 (coluna)  |  +estruturas 0.0740 (coluna)
+  04  V2 0.0384 (svd k=2 +ALS(0.0))  |  +estruturas 0.0259 (poliC1)  <- muda
+  05  V2 0.1296 (svd k=3 c +ALS(0.1))  |  +estruturas 0.0495 (poliC2)  <- muda
+  06  V2 0.0426 (svd k=3 +ALS(0.01))  |  +estruturas 0.0426 (svd k=3 +ALS(0.01))
+  07  V2 0.0861 (svd k=4 c)  |  +estruturas 0.0861 (svd k=4 c)
+  08  V2 1.0026 (global)  |  +estruturas 1.0026 (global)
+  09  V2 0.0000 (svd k=5 c +ALS(0.0))  |  +estruturas 0.0000 (svd k=5 c +ALS(0.0))
+  10  V2 0.0030 (svd k=6 +ALS(0.01))  |  +estruturas 0.0030 (svd k=6 +ALS(0.01))
+
+CHECAGEM: ok, sem NaN/Inf/celula alterada e tudo < 2 s

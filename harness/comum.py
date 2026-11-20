@@ -40,8 +40,8 @@ def carregar_banco(pasta):
 def nrmse(g, pred, m):
     """Devolve (nrmse com desvio das ocultas, nrmse com desvio da matriz inteira).
 
-    O avaliador oficial usa uma delas (e o monitor mudou a normalizacao em 03/11).
-    Compare estes valores com o que a interface mostra para saber qual vale.
+    A coluna que usa o desvio das ocultas reproduziu o NRMSE oficial da V2.
+    A segunda coluna e mantida como referencia alternativa.
     """
     ocultas = ~np.asarray(m).astype(bool)
     erro = np.sqrt(np.mean((np.asarray(pred, dtype=float)[ocultas] - g[ocultas]) ** 2))
@@ -78,6 +78,8 @@ def problemas_da_saida(saida, o, m):
     if np.isinf(arr).any():
         probs.append(f"{int(np.isinf(arr).sum())} valor(es) Inf na saida")
     conhecidas = np.asarray(m).astype(bool)
-    if not probs and not np.allclose(arr[conhecidas], o[conhecidas]):
-        probs.append("celulas conhecidas foram alteradas (permitido, mas nao esperado)")
+    if not probs:
+        alteradas = ~np.isclose(arr[conhecidas].astype(float), np.asarray(o, dtype=float)[conhecidas], rtol=1e-9, atol=1e-12)
+        if alteradas.any():
+            probs.append(f"{int(alteradas.sum())} celula(s) conhecida(s) alterada(s)")
     return probs

@@ -1,0 +1,10 @@
+ENTREGA FINAL - CIN0138 - 17/11/2026
+
+(1) O codigo final aprovado pelo Docker esta em src/principal.py.
+(2) O relatorio atualizado esta em relatorio/relatorio_algoritmo.pdf.
+(3) Para o Classroom, use o arquivo SEPARADO GrupoNUMERO.zip: renomeie com o numero da equipe.
+(4) O ZIP do repositorio completo NAO deve ser enviado ao Classroom.
+(5) Registre os nomes completos da equipe no comentario particular do Classroom.
+(6) Prazo informado no guia: 20/11/2026, 23h59.
+(7) Se editar src/principal.py, teste novamente no avaliador oficial antes de entregar.
+(8) Banco SQLite: o arquivo competicao.db nao deve ser uma pasta.

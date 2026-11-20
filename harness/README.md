@@ -5,6 +5,7 @@ Ferramentas para medir e checar o codigo sem o Docker. Nada daqui vai no `.zip` 
 | Arquivo | Para que serve |
 |---|---|
 | `verificador.py` | Reprova o `principal.py` que fere as regras do avaliador (imports, `class`, `seed`, `default_rng`, assinatura, NaN/Inf, dimensao, tempo). |
+| `testes_verificador.py` | Testes de regressao do verificador: 32 arquivos que devem ser reprovados (`class`, `import time`, imports fora da lista, seed/default_rng/RandomState/Random, NaN, Inf, dimensao errada, celula conhecida alterada...) e 4 que devem ser aprovados, incluindo `src/principal.py`. |
 | `avaliar.py` | Roda um `principal.py` no banco publico ou em matrizes sinteticas e mostra NRMSE e tempo por matriz. |
 | `sinteticas.py` | Gera matrizes de teste (ate 40x40) que simulam o lote privado. |
 | `comum.py` | Funcoes usadas pelos tres arquivos acima (carregar dados, NRMSE, checar saida). |
@@ -18,6 +19,7 @@ pip install numpy scipy
 
 # 1. Antes de qualquer envio: o codigo cumpre as regras?
 python harness/verificador.py src/principal.py banco_publico
+python harness/testes_verificador.py   # o proprio verificador ainda pega tudo?
 
 # 2. Qual o erro e o tempo no banco publico?
 python harness/avaliar.py src/principal.py
@@ -33,15 +35,9 @@ python harness/bench.py banco_publico
 python harness/bench2.py banco_publico harness
 ```
 
-## Calibracao com o avaliador oficial (fazer antes de confiar nos numeros)
+## Validacao no avaliador oficial
 
-`avaliar.py` imprime duas colunas de NRMSE, uma com o desvio padrao das celulas ocultas e
-outra com o da matriz inteira, porque o monitor mudou a normalizacao em 03/11 sem dizer como.
-
-1. Atualizar o container (`docker rm -f avlc_avaliador`, `docker compose pull`, `docker compose up -d`).
-2. Enviar o `src/principal.py` base (que preenche com a media) na interface em `http://localhost:8501`.
-3. Comparar o NRMSE por matriz da interface com as duas colunas do `avaliar.py`.
-4. Se uma coluna bater, essa e a normalizacao oficial. Se nenhuma bater, perguntar no Discord e ajustar `nrmse` em `comum.py`.
+A versão final V2 foi aceita no Docker atualizado em 17/11/2026, com NRMSE público `0,264132` e 0,4440 s no lote. A coluna `NRMSE(ocultas)` do harness corresponde aos resultados observados no avaliador oficial. Continue a usar o Docker para confirmar qualquer alteração no código; os tempos locais variam conforme a máquina.
 
 ## Limites do harness
 
