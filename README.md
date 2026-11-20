@@ -157,11 +157,9 @@ torneio-algebra-linear/
 ### Clonar o repositório
 
 ```bash
-git clone <URL_DO_SEU_REPOSITORIO>
+git clone https://github.com/albertsantanadev/torneio-algebra-linear.git
 cd torneio-algebra-linear
 ```
-
-Substitua `<URL_DO_SEU_REPOSITORIO>` pelo endereço HTTPS ou SSH do projeto no GitHub.
 
 ### Instalar a dependência de execução
 
